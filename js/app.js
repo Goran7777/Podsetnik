@@ -36,3 +36,8 @@ document.querySelector("button").addEventListener("click", function (e) {
 document.querySelector("#trazi-text").addEventListener("input", function (e) {
   console.log(e.target.value);
 });
+document.querySelector("#ime-forma").addEventListener("submit", function (e) {
+  e.preventDefault();
+  console.log(e.target.elements.Ime.value);
+  e.target.elements.Ime.value = "";
+});
