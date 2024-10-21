@@ -15,6 +15,16 @@ const notes = [
 const filters = {
   traziText: "",
 };
+// const korisnik = {
+//   ime: "Goran",
+//   godine: 50,
+// };
+// const korisnikJSON = JSON.stringify(korisnik);
+// // console.log(korisnikJSON);
+// localStorage.setItem("nasKorisnik", korisnikJSON);
+// const korisnikJSON = localStorage.getItem("nasKorisnik");
+// const korisnik = JSON.parse(korisnikJSON);
+// console.log(korisnik);
 
 const renderNotes = function (notes, filters) {
   const filteredNotes = notes.filter(function (note) {
@@ -33,11 +43,26 @@ document.querySelector("button").addEventListener("click", function (e) {
   e.target.textContent = "Dugme je kliknuto !";
 });
 
-document.querySelector("#trazi-text").addEventListener("input", function (e) {
-  console.log(e.target.value);
-});
-document.querySelector("#ime-forma").addEventListener("submit", function (e) {
-  e.preventDefault();
-  console.log(e.target.elements.Ime.value);
-  e.target.elements.Ime.value = "";
-});
+document
+  .querySelector("#kreiraj-zapis")
+  .addEventListener("click", function (e) {
+    notes.push({
+      title: "",
+      body: "",
+    });
+    localStorage.setItem("notes", JSON.stringify(notes));
+    renderNotes(notes, filters);
+  });
+// document.querySelector("#trazi-text").addEventListener("input", function (e) {
+//   console.log(e.target.value);
+// });
+// document.querySelector("#ime-forma").addEventListener("submit", function (e) {
+//   e.preventDefault();
+//   console.log(e.target.elements.Ime.value);
+//   e.target.elements.Ime.value = "";
+// });
+// document
+//   .querySelector("#filtriraj-po")
+//   .addEventListener("change", function (e) {
+//     console.log(e.target.value);
+//   });
