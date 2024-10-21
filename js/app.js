@@ -1,5 +1,5 @@
 const notes = getSavedNotes();
-
+const uid = new ShortUniqueId({ length: 20 });
 const filters = {
   searchText: "",
 };
@@ -8,6 +8,7 @@ renderNotes(notes, filters);
 
 document.querySelector("#create-note").addEventListener("click", function (e) {
   notes.push({
+    id: uid.rnd(),
     title: "",
     body: "",
   });
