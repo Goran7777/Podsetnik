@@ -65,3 +65,7 @@ const renderNotes = function (notes, filters) {
     document.querySelector("#notes").appendChild(noteEl);
   });
 };
+// generate the last edited message
+const generateLastEdited = function (timestamp) {
+  return `Zadnja ispravka - ${moment(timestamp).format("DD MM YYYY")} -te.`;
+};

@@ -7,10 +7,13 @@ const filters = {
 renderNotes(notes, filters);
 
 document.querySelector("#create-note").addEventListener("click", function (e) {
+  const timestamp = moment().valueOf();
   notes.push({
     id: uid.rnd(),
     title: "",
     body: "",
+    createdAt: timestamp,
+    updatedAt: timestamp,
   });
   saveNotes(notes);
   renderNotes(notes, filters);
