@@ -2,15 +2,15 @@ const titleElement = document.querySelector("#note-title");
 const bodyElement = document.querySelector("#note-body");
 const removeElement = document.querySelector("#remove-note");
 const noteId = location.search.substring(1);
-const notes = getSavedNotes();
-
-const note = notes.find(function (note) {
+let notes = getSavedNotes();
+let note = notes.find(function (note) {
   return note.id === noteId;
 });
 
 if (note === undefined) {
   location.assign("/index.html");
 }
+
 titleElement.value = note.title;
 bodyElement.value = note.body;
 
@@ -21,10 +21,24 @@ titleElement.addEventListener("input", function (e) {
 
 bodyElement.addEventListener("input", function (e) {
   note.body = e.target.value;
+  saveNotes(notes);
 });
 
 removeElement.addEventListener("click", function (e) {
   removeNote(note.id);
   saveNotes(notes);
-  location.assign("./index.html");
+  location.assign("/index.html");
+});
+window.addEventListener("storage", function (e) {
+  if (e.key === "notes") {
+    notes = JSON.parse(e.newValue);
+    note = notes.find(function (note) {
+      return note.id === noteId;
+    });
+    if (note === undefined) {
+      this.location.assign("./index.html");
+    }
+    titleElement.value = note.title;
+    bodyElement.value = note.body;
+  }
 });
