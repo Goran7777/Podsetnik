@@ -51,24 +51,6 @@ const generateNoteDOM = function (note) {
 
   return noteEl;
 };
-
-// Render application notes
-const renderNotes = function (notes, filters) {
-  const filteredNotes = notes.filter(function (note) {
-    return note.title.toLowerCase().includes(filters.searchText.toLowerCase());
-  });
-
-  document.querySelector("#notes").innerHTML = "";
-
-  filteredNotes.forEach(function (note) {
-    const noteEl = generateNoteDOM(note);
-    document.querySelector("#notes").appendChild(noteEl);
-  });
-};
-// generate the last edited message
-const generateLastEdited = function (timestamp) {
-  return `Zadnja ispravka - ${moment(timestamp).format("DD MM YYYY")} -te.`;
-};
 // sort your notes by one of three ways
 const sortNotes = function (notes, sortBy) {
   if (sortBy === "byEdited") {
@@ -101,5 +83,25 @@ const sortNotes = function (notes, sortBy) {
         return 0;
       }
     });
+  } else {
+    return notes; // fixed bug
   }
+};
+// Render application notes
+const renderNotes = function (notes, filters) {
+  notes = sortNotes(notes, filters.sortBy);
+  const filteredNotes = notes.filter(function (note) {
+    return note.title.toLowerCase().includes(filters.searchText.toLowerCase());
+  });
+
+  document.querySelector("#notes").innerHTML = "";
+
+  filteredNotes.forEach(function (note) {
+    const noteEl = generateNoteDOM(note);
+    document.querySelector("#notes").appendChild(noteEl);
+  });
+};
+// generate the last edited message
+const generateLastEdited = function (timestamp) {
+  return `Zadnja ispravka - ${moment(timestamp).format("DD MM YYYY")} -te.`;
 };
